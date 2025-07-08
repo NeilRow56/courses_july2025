@@ -9,7 +9,7 @@ const SigninPage = async () => {
   const session = await auth.api.getSession({
     headers: headersList
   })
-
+  // if signed in redirect to home page
   if (!!session) redirect('/')
   return <SignInView />
 }

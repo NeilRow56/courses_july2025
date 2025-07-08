@@ -6,14 +6,15 @@ import { schema } from '@/db/schema'
 import VerifyEmail from '@/components/emails/verify-email'
 import { Resend } from 'resend'
 import ForgotPasswordEmail from '@/components/emails/reset-password'
+import { env } from './env'
 
-const resend = new Resend(process.env.RESEND_API_KEY as string)
+const resend = new Resend(env.RESEND_API_KEY)
 
 export const auth = betterAuth({
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
       resend.emails.send({
-        from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+        from: `${env.EMAIL_SENDER_NAME} <${env.EMAIL_SENDER_ADDRESS}>`,
         to: user.email,
         subject: 'Verify your email',
         react: VerifyEmail({ username: user.name, verifyUrl: url })
@@ -26,7 +27,7 @@ export const auth = betterAuth({
     enabled: true,
     sendResetPassword: async ({ user, url }) => {
       resend.emails.send({
-        from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+        from: `${env.EMAIL_SENDER_NAME} <${env.EMAIL_SENDER_ADDRESS}>`,
         to: user.email,
         subject: 'Reset your password',
         react: ForgotPasswordEmail({

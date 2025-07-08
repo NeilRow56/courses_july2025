@@ -11,7 +11,7 @@ export default async function Home() {
     headers: headersList
   })
 
-  if (!session) redirect('/sign-in')
+  if (session) redirect('/dashboard')
   return (
     <div className='flex h-dvh items-center justify-center'>
       <div className='flex flex-col items-center justify-center gap-8'>

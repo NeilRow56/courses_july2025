@@ -23,7 +23,7 @@ export const HomeView = () => {
         <Link href={href}>Get Started</Link>
       </Button>
       {session && (
-        <p className='flex items-center gap-2'>
+        <div className='flex items-center gap-2'>
           <span
             // data-role={session.user.role}
             className='size-4 animate-pulse rounded-full data-[role=admin]:bg-red-600 data-[role=user]:bg-blue-600'
@@ -32,17 +32,17 @@ export const HomeView = () => {
           <span className='text-xl text-blue-600'>
             Welcome back, {session.user.name} 👋
           </span>
-        </p>
+          <Button
+            onClick={() =>
+              authClient.signOut({
+                fetchOptions: { onSuccess: () => router.push('/sign-in') }
+              })
+            }
+          >
+            Sign out
+          </Button>
+        </div>
       )}
-      <Button
-        onClick={() =>
-          authClient.signOut({
-            fetchOptions: { onSuccess: () => router.push('/sign-in') }
-          })
-        }
-      >
-        Sign out
-      </Button>
     </div>
   )
 }
