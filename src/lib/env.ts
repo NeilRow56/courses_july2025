@@ -13,7 +13,8 @@ export const env = createEnv({
 
     EMAIL_SENDER_NAME: z.string().min(1),
 
-    EMAIL_SENDER_ADDRESS: z.email()
+    EMAIL_SENDER_ADDRESS: z.email(),
+    ARCJET_KEY: z.string().min(1)
   },
 
   experimental__runtimeEnv: {}

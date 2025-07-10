@@ -78,7 +78,7 @@ const VerifyEmail = (props: VerifyEmailProps) => {
                 <a href='#' className='text-gray-400 underline'>
                   Unsubscribe
                 </a>{' '}
-                | © 2024 Company Name. All rights reserved.
+                | © 2025 Company Name. All rights reserved.
               </Text>
             </Section>
           </Container>
