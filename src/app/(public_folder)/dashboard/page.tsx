@@ -23,14 +23,7 @@ export default function DashboardPage() {
       </Button>
       {session && (
         <div className='flex items-center gap-2'>
-          <span
-            // data-role={session.user.role}
-            className='size-4 animate-pulse rounded-full data-[role=admin]:bg-red-600 data-[role=user]:bg-blue-600'
-          />
-
-          <span className='text-xl text-blue-600'>
-            Welcome back, {session.user.name} 👋
-          </span>
+          <span className='text-xl'>Welcome back, {session.user.name} 👋</span>
           <Button
             onClick={() =>
               authClient.signOut({

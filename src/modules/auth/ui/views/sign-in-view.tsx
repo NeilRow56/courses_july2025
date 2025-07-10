@@ -52,7 +52,7 @@ export const SignInView = ({
 
     if (success) {
       toast.success(message as string)
-      router.push('/')
+      router.push('/courses')
     } else {
       toast.error(message as string)
     }

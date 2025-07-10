@@ -10,7 +10,7 @@ const SigninPage = async () => {
     headers: headersList
   })
   // if signed in redirect to home page
-  if (!!session) redirect('/')
+  if (!!session) redirect('/courses')
   return <SignInView />
 }
 
