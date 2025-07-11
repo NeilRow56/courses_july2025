@@ -1,4 +1,13 @@
-import { pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core'
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  pgEnum,
+  integer
+} from 'drizzle-orm/pg-core'
+import { createdAt, updatedAt } from './schemaHelpers'
+import { relations } from 'drizzle-orm'
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -60,4 +69,43 @@ export const verification = pgTable('verification', {
   )
 })
 
-export const schema = { user, session, account, verification }
+export const courseLevels = ['beginner', 'intermediate', 'advanced'] as const
+export type CourseLevel = (typeof courseLevels)[number]
+export const courseLevelEnum = pgEnum('course_level', courseLevels)
+
+export const courseStatuses = ['draft', 'published', 'archived'] as const
+export type CourseStatus = (typeof courseStatuses)[number]
+export const courseStatusEnum = pgEnum('course__status', courseStatuses)
+
+export const courses = pgTable('courses', {
+  id: text('id').primaryKey(),
+  title: text().notNull(),
+  description: text().notNull(),
+  fileKey: text().notNull(),
+  price: integer().notNull(),
+  duration: integer().notNull(),
+  level: courseLevelEnum().notNull().default('beginner'),
+  category: text().notNull(),
+  smallDescription: text().notNull(),
+  slug: text().notNull().unique(),
+  status: courseStatusEnum().notNull().default('draft'),
+  userId: text('user_id')
+    .notNull()
+    .references(() => user.id),
+  createdAt,
+  updatedAt
+})
+
+// Create relations
+export const UserRelationships = relations(user, ({ many }) => ({
+  CourseTable: many(courses)
+}))
+
+export const courseRelations = relations(courses, ({ one }) => ({
+  user: one(user, {
+    fields: [courses.userId],
+    references: [user.id]
+  })
+}))
+
+export const schema = { user, session, account, verification, courses }
