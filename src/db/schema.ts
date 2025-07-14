@@ -69,6 +69,22 @@ export const verification = pgTable('verification', {
   )
 })
 
+export const categories = [
+  'Business',
+  'Design',
+  'Development',
+  'Finance',
+  'Health & Fitness',
+  'IT & Software',
+  'Marketing',
+  'Music',
+  'Office Productivity',
+  'Personal Development'
+] as const
+
+export type categories = (typeof categories)[number]
+export const categoriesEnum = pgEnum('categories', categories)
+
 export const courseLevels = ['beginner', 'intermediate', 'advanced'] as const
 export type CourseLevel = (typeof courseLevels)[number]
 export const courseLevelEnum = pgEnum('course_level', courseLevels)
@@ -82,8 +98,8 @@ export const courses = pgTable('courses', {
   title: text().notNull(),
   description: text().notNull(),
   fileKey: text().notNull(),
-  price: integer().notNull(),
-  duration: integer().notNull(),
+  price: integer('price').notNull(),
+  duration: integer('duration').notNull(),
   level: courseLevelEnum().notNull().default('beginner'),
   category: text().notNull(),
   smallDescription: text().notNull(),
