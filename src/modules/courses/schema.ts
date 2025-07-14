@@ -11,6 +11,7 @@ export const courseSchema = z.object({
     .min(3, { error: 'Description must be at least 3 characters.' }),
   fileKey: z.string().min(1, { error: 'File is required' }),
   price: z
+
     .number()
     .min(1, { error: 'Price must be a positive number' })
     .nullable(),
