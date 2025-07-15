@@ -22,10 +22,12 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { SparkleIcon } from 'lucide-react'
+import { PlusIcon, SparkleIcon } from 'lucide-react'
 import { Textarea } from '@/components/ui/textarea'
 import { categories, courseLevels, courseStatuses } from '@/db/schema'
 import { formatCourseLevel, formatCourseStatus } from '../lib/formatters'
+import RichTextEditor from '@/components/rich-text-editor/Editor'
+import { Label } from '@/components/ui/label'
 
 export function CourseCreationForm() {
   const form = useForm({
@@ -111,13 +113,9 @@ export function CourseCreationForm() {
           name='description'
           render={({ field }) => (
             <FormItem className='w-full'>
-              <FormLabel className='font-semibold'>Description</FormLabel>
+              <Label className='font-semibold'>Description</Label>
               <FormControl>
-                <Textarea
-                  className='min-h-[120px]'
-                  placeholder='Full description of your course'
-                  {...field}
-                />
+                <RichTextEditor field={field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -273,7 +271,9 @@ export function CourseCreationForm() {
           )}
         />
 
-        <Button type='submit'>Submit</Button>
+        <Button type='submit'>
+          Create course <PlusIcon className='ml-1 size-4' />
+        </Button>
       </form>
     </Form>
   )
