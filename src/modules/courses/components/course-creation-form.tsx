@@ -28,6 +28,7 @@ import { categories, courseLevels, courseStatuses } from '@/db/schema'
 import { formatCourseLevel, formatCourseStatus } from '../lib/formatters'
 import RichTextEditor from '@/components/rich-text-editor/Editor'
 import { Label } from '@/components/ui/label'
+import { Uploader } from '@/components/file-uploader/Uploader'
 
 export function CourseCreationForm() {
   const form = useForm({
@@ -36,8 +37,8 @@ export function CourseCreationForm() {
       title: '',
       description: '',
       fileKey: '',
-      price: null,
-      duration: null,
+      price: 0,
+      duration: 0,
       level: 'beginner',
       category: 'Health & Fitness',
       status: 'draft',
@@ -126,9 +127,9 @@ export function CourseCreationForm() {
           name='fileKey'
           render={({ field }) => (
             <FormItem className='w-full'>
-              <FormLabel className='font-semibold'>Thummbnail image</FormLabel>
+              <Label className='font-semibold'>Thumbnail image</Label>
               <FormControl>
-                <Input placeholder='Thummbnail url' {...field} />
+                <Uploader onChange={field.onChange} value={field.value} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -11,13 +11,11 @@ export const courseSchema = z.object({
     .min(3, { error: 'Description must be at least 3 characters.' }),
   fileKey: z.string().min(1, { error: 'File is required' }),
   price: z
-
     .number()
     .min(1, { error: 'Price must be a positive number' })
     .nullable(),
 
   duration: z
-
     .number()
     .min(1, { error: 'Duration must be at least 1 hour' })
     .max(50, { error: 'Duration must be most least 50 hours' })
